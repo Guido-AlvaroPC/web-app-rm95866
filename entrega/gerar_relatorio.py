@@ -138,7 +138,7 @@ def solucao(pdf):
     linha_tabela(pdf, "Recurso", "Valor", negrito=True)
     for esquerda, direita in [
         ("Grupo de recursos", "rg-web-app"),
-        ("Região", "brazilsouth"),
+        ("Região", "eastus"),
         ("Plano", "plan-web-app"),
         ("SKU", "F1"),
         ("Sistema operacional", "Linux"),

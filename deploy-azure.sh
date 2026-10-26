@@ -9,12 +9,12 @@
 #   SKU:     F1
 #   SO:      Linux
 #   Web App: web-app-rm95866
-#   Região:  brazilsouth (troque se a Política da assinatura bloquear)
+#   Região:  eastus (o plano F1 não tem cota em brazilsouth nesta assinatura)
 
 set -euo pipefail
 
 RG="rg-web-app"
-LOCATION="brazilsouth"
+LOCATION="eastus"
 PLAN="plan-web-app"
 APP_NAME="web-app-rm95866"
 RUNTIME="PYTHON:3.14"

@@ -9,14 +9,14 @@ RM do representante: **95866**
 | Item do enunciado | Valor no script |
 | --- | --- |
 | Grupo de recursos | `rg-web-app` |
-| Região | `brazilsouth` |
+| Região | `eastus` |
 | Plano | `plan-web-app` |
 | SKU | `F1` |
 | Sistema operacional | Linux |
 | Serviço de Aplicativo | `web-app-rm95866` |
 | Runtime | `PYTHON:3.14` |
 
-A região inicial é a mesma usada na aula. Se a Política da assinatura recusar `brazilsouth`, troque apenas a variável `LOCATION` em `deploy-azure.sh` por uma região permitida e execute o script de novo.
+A região é `eastus` porque, nesta assinatura, o plano gratuito F1 não tem cota em `brazilsouth`. Se a Política recusar `eastus`, troque a variável `LOCATION` em `deploy-azure.sh` por outra região permitida que ofereça o SKU F1 e execute o script de novo.
 
 ## O que a aplicação faz
 
@@ -82,7 +82,7 @@ Abra o script:
 code deploy-azure.sh
 ```
 
-A variável `LOCATION` já está como `brazilsouth`. Só altere se o passo seguinte recusar a região. Para ver as regiões da conta:
+A variável `LOCATION` já está como `eastus`. Só altere se o passo seguinte recusar a região. Para ver as regiões da conta:
 
 ```bash
 az account list-locations --query "[].name" --output tsv
