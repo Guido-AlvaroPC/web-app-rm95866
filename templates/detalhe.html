@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ ordem.id }} · Inova Trônica{% endblock %}
+{% block content %}
+<section class="cartao">
+  <p class="olho">{{ ordem.id }}</p>
+  <h2>{{ ordem.equipamento }}</h2>
+  <p class="linha-selos">
+    <span class="selo prioridade-{{ ordem.prioridade|slug }}">{{ ordem.prioridade }}</span>
+    <span class="selo status-{{ ordem.status|slug }}">{{ ordem.status }}</span>
+    <span class="selo neutro">{{ ordem.celula }}</span>
+  </p>
+
+  <ol class="etapas">
+    {% for etapa in fluxo %}
+      {% set indice = loop.index0 %}
+      {% set atual = fluxo.index(ordem.status) %}
+      <li class="{% if indice < atual %}feita{% elif indice == atual %}atual{% endif %}">{{ etapa }}</li>
+    {% endfor %}
+  </ol>
+
+  <dl class="ficha">
+    <div>
+      <dt>Sintoma</dt>
+      <dd>{{ ordem.sintoma }}</dd>
+    </div>
+    <div>
+      <dt>Responsável</dt>
+      <dd>{{ ordem.tecnico }}</dd>
+    </div>
+    <div>
+      <dt>Aberta em</dt>
+      <dd>{{ ordem.aberta_em }}</dd>
+    </div>
+    <div>
+      <dt>Atualizada em</dt>
+      <dd>{{ ordem.atualizada_em }}</dd>
+    </div>
+  </dl>
+
+  <div class="acoes">
+    {% if proxima %}
+      <form method="post" action="{{ url_for('avancar', ordem_id=ordem.id) }}">
+        <button type="submit">Avançar para {{ proxima }}</button>
+      </form>
+    {% else %}
+      <p class="concluida">Esta ordem já foi concluída.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Voltar ao painel</a>
+  </div>
+</section>
+{% endblock %}

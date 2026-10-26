@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Inova Trônica{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="faixa">
+    RM {{ rm }} · {{ app_nome }} · rg-web-app · plan-web-app · Linux F1
+  </div>
+  <header class="topo">
+    <div>
+      <p class="marca">Inova Trônica</p>
+      <h1>Central de ordens de serviço</h1>
+    </div>
+    <nav>
+      <a href="{{ url_for('index') }}">Painel</a>
+      <a class="botao" href="{{ url_for('nova') }}">Nova ordem</a>
+    </nav>
+  </header>
+  <main>
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% for categoria, texto in mensagens %}
+        <p class="aviso {{ categoria }}">{{ texto }}</p>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    Demonstração da expansão da Inova Trônica para o Azure App Service.
+    Não registre dados pessoais reais.
+  </footer>
+</body>
+</html>

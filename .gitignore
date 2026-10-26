@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+app.zip
+data/*.json
+entrega/*.pdf
+entrega/prints/
+.idea/
+.vscode/
+*.log

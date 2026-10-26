@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Nova ordem · Inova Trônica{% endblock %}
+{% block content %}
+<section class="cartao formulario">
+  <h2>Abrir ordem de serviço</h2>
+  <p>Registre o equipamento, a célula e o sintoma observado no chão de fábrica.</p>
+  <form method="post">
+    <label for="equipamento">Equipamento</label>
+    <input id="equipamento" name="equipamento" required minlength="3" maxlength="80" value="{{ form.equipamento }}" placeholder="Ex.: Sensor de visão da inspeção final">
+
+    <div class="grade">
+      <div>
+        <label for="celula">Célula</label>
+        <select id="celula" name="celula" required>
+          <option value="" {% if not form.celula %}selected{% endif %} disabled>Selecione</option>
+          {% for item in celulas %}
+            <option value="{{ item }}" {% if form.celula == item %}selected{% endif %}>{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="prioridade">Prioridade</label>
+        <select id="prioridade" name="prioridade" required>
+          <option value="" {% if not form.prioridade %}selected{% endif %} disabled>Selecione</option>
+          {% for item in prioridades %}
+            <option value="{{ item }}" {% if form.prioridade == item %}selected{% endif %}>{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <label for="tecnico">Responsável</label>
+    <input id="tecnico" name="tecnico" required minlength="3" maxlength="60" value="{{ form.tecnico }}" placeholder="Ex.: Plantão C">
+
+    <label for="sintoma">Sintoma</label>
+    <textarea id="sintoma" name="sintoma" required minlength="10" maxlength="400" rows="4" placeholder="O que a célula apresentou?">{{ form.sintoma }}</textarea>
+
+    <div class="acoes">
+      <button type="submit">Registrar ordem</button>
+      <a href="{{ url_for('index') }}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

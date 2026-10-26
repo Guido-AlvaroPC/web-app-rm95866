@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Painel · Inova Trônica{% endblock %}
+{% block content %}
+<section class="intro">
+  <div>
+    <h2>Células de automação</h2>
+    <p>Acompanhe paradas, diagnóstico e reparo dos equipamentos da fábrica sem abrir chamado no portal.</p>
+  </div>
+</section>
+
+<section class="metricas">
+  {% for nome, quantidade in contagens %}
+    {% set ativo = (nome == "Todas" and not filtro) or nome == filtro %}
+    <a class="metrica {% if ativo %}ativa{% endif %}" href="{{ url_for('index', status=nome if nome != 'Todas' else none) }}">
+      <strong>{{ quantidade }}</strong>
+      <span>{{ nome }}</span>
+    </a>
+  {% endfor %}
+</section>
+
+<section class="painel">
+  {% if ordens %}
+    <table>
+      <thead>
+        <tr>
+          <th>Ordem</th>
+          <th>Equipamento</th>
+          <th>Célula</th>
+          <th>Prioridade</th>
+          <th>Status</th>
+          <th>Atualização</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ordem in ordens %}
+          <tr>
+            <td><a href="{{ url_for('detalhe', ordem_id=ordem.id) }}">{{ ordem.id }}</a></td>
+            <td>{{ ordem.equipamento }}</td>
+            <td>{{ ordem.celula }}</td>
+            <td><span class="selo prioridade-{{ ordem.prioridade|slug }}">{{ ordem.prioridade }}</span></td>
+            <td><span class="selo status-{{ ordem.status|slug }}">{{ ordem.status }}</span></td>
+            <td>{{ ordem.atualizada_em }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="vazio">Nenhuma ordem neste filtro. Abra uma nova ordem para registrar o chamado.</p>
+  {% endif %}
+</section>
+{% endblock %}
