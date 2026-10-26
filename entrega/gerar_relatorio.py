@@ -11,7 +11,7 @@ from fpdf import FPDF
 
 NOME = ""
 GRUPO = "RM 95866"
-REPOSITORIO = ""
+REPOSITORIO = "https://github.com/Guido-AlvaroPC/web-app-rm95866"
 RM = "95866"
 
 RAIZ = Path(__file__).resolve().parent
@@ -138,7 +138,7 @@ def solucao(pdf):
     linha_tabela(pdf, "Recurso", "Valor", negrito=True)
     for esquerda, direita in [
         ("Grupo de recursos", "rg-web-app"),
-        ("Região", "eastus"),
+        ("Região do plano e do Web App", "westus2"),
         ("Plano", "plan-web-app"),
         ("SKU", "F1"),
         ("Sistema operacional", "Linux"),

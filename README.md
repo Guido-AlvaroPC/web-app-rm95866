@@ -9,14 +9,14 @@ RM do representante: **95866**
 | Item do enunciado | Valor no script |
 | --- | --- |
 | Grupo de recursos | `rg-web-app` |
-| Região | `eastus` |
+| Região do plano e do Web App | `westus2` |
 | Plano | `plan-web-app` |
 | SKU | `F1` |
 | Sistema operacional | Linux |
 | Serviço de Aplicativo | `web-app-rm95866` |
 | Runtime | `PYTHON:3.14` |
 
-A região é `eastus` porque, nesta assinatura, o plano gratuito F1 não tem cota em `brazilsouth`. Se a Política recusar `eastus`, troque a variável `LOCATION` em `deploy-azure.sh` por outra região permitida que ofereça o SKU F1 e execute o script de novo.
+O plano e o Web App ficaram em `westus2`. Nesta assinatura o SKU F1 não tem cota em `brazilsouth` nem em `eastus`. O grupo `rg-web-app` pode aparecer com outra região no portal: ele só agrupa os recursos. A região que vale para o trabalho é a do plano e a do Web App.
 
 ## O que a aplicação faz
 
@@ -82,7 +82,7 @@ Abra o script:
 code deploy-azure.sh
 ```
 
-A variável `LOCATION` já está como `eastus`. Só altere se o passo seguinte recusar a região. Para ver as regiões da conta:
+A variável `LOCATION` já está como `westus2`. Só altere se o passo seguinte recusar a região. Para ver as regiões da conta:
 
 ```bash
 az account list-locations --query "[].name" --output tsv

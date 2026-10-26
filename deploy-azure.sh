@@ -9,12 +9,12 @@
 #   SKU:     F1
 #   SO:      Linux
 #   Web App: web-app-rm95866
-#   Região:  eastus (o plano F1 não tem cota em brazilsouth nesta assinatura)
+#   Região:  westus2 (F1 sem cota em brazilsouth e eastus nesta assinatura)
 
 set -euo pipefail
 
 RG="rg-web-app"
-LOCATION="eastus"
+LOCATION="westus2"
 PLAN="plan-web-app"
 APP_NAME="web-app-rm95866"
 RUNTIME="PYTHON:3.14"
@@ -39,10 +39,15 @@ fi
 
 echo
 echo "== 1. Grupo de recursos: ${RG} (${LOCATION}) =="
-az group create \
-  --name "${RG}" \
-  --location "${LOCATION}" \
-  --output table
+if az group show --name "${RG}" --output none 2>/dev/null; then
+  echo "O grupo ${RG} já existe."
+  az group show --name "${RG}" --query "{nome:name, regiao:location}" --output table
+else
+  az group create \
+    --name "${RG}" \
+    --location "${LOCATION}" \
+    --output table
+fi
 
 echo
 echo "== 2. Plano Linux ${SKU}: ${PLAN} =="
